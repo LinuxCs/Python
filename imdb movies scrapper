@@ -1,0 +1,35 @@
+#usr/bin/python 
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan  8 17:01:59 2020
+
+@author: linuxcs
+"""
+
+from bs4 import BeautifulSoup as BS
+import requests as rq
+
+red = '\033[33m'
+blue = '\033[34m'
+purple = '\033[35m'
+lightgrey='\033[47m'
+
+url = 'https://www.imdb.com/find'
+headers = {"useragent":"Mozilla/5.0 (Windows NT 6.1; rv:71.0) Gecko/20100101 Firefox/71.0"}
+x = rq.Session()
+x.headers.update(headers)
+
+movieName = raw_input("Please Enter Movie Name! \n ")
+
+query = {'ref_':'nv_sr_sm',
+         'q':movieName,
+         's':'all'}
+
+xx = x.get(url, params=query)
+soup = BS(xx.content, "lxml")
+for xxx in soup.findAll('div',{'class':'findSection'}):
+    for title in xxx.findAll('h3',{'class':'findSectionHeader'}):
+        if title.text == "Titles":
+            for name in xxx.findAll('td',{"class":"result_text"}):
+                print "Movie Name " + red + name.text + blue
+                                
