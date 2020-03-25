@@ -1,0 +1,21 @@
+#!/usr/bin/python
+#! Email Extractor From Combo List
+import os,platform
+
+if platform.system()=='Windows':
+  os.system('cls')
+else:
+  os.system('clean')
+
+print '''XToolX.Pro Please Visit For More Scripts'''
+
+combo = raw_input(" Combo Email:Pass File: ")
+lines = open(combo, 'r').readlines()
+print 'Cleaning Combo'
+for line in lines:
+    elem = line.split(':')
+    email = elem[0].strip()
+    with open('xtoolx.txt', 'a') as myfile:
+			 myfile.write(email)
+			 myfile.write('\n')
+print '[+] File generated as : xtoolx.txt'
